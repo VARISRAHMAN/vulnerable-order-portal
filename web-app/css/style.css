@@ -1,48 +1,371 @@
-body {
-    font-family: Arial, sans-serif;
+/* Modern Burger Shop Login Page */
+* {
     margin: 0;
-    padding: 20px;
-    background-color: #f5f5f5;
-}
-
-.login-container, .admin-panel, .customer-panel, .upload-container {
-    max-width: 800px;
-    margin: 0 auto;
-    background: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.login-container {
-    max-width: 400px;
-    text-align: center;
-}
-
-.login-container input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 3px;
+    padding: 0;
     box-sizing: border-box;
 }
 
-.login-container button {
-    width: 100%;
-    padding: 12px;
-    background: #007cba;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
+body {
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    overflow: hidden;
 }
 
-.demo-accounts {
-    margin-top: 20px;
-    padding: 15px;
-    background: #e7f3ff;
-    border-radius: 3px;
+/* Main Login Wrapper */
+.login-wrapper {
+    display: flex;
+    height: 100vh;
+    animation: fadeIn 0.8s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Left Side - Background Image */
+.login-left {
+    flex: 1;
+    background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(255,107,53,0.3));
+}
+
+.welcome-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    max-width: 400px;
+    padding: 0 20px;
+}
+
+.logo {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+.welcome-content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.welcome-content p {
+    font-size: 1.2rem;
+    font-weight: 300;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+/* Right Side - Login Form */
+.login-right {
+    flex: 1;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.login-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 3rem;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    animation: slideIn 0.6s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.card-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.card-header h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.card-header p {
+    color: #6c757d;
+    font-weight: 400;
+}
+
+/* Form Styles */
+.login-form {
+    margin-bottom: 2rem;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: rgba(255,255,255,0.8);
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #ff6b35;
+    box-shadow: 0 0 0 3px rgba(255,107,53,0.1);
+    background: white;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+/* Custom Checkbox */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #6c757d;
+}
+
+.checkbox-container input {
+    display: none;
+}
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #dee2e6;
+    border-radius: 4px;
+    margin-right: 0.5rem;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.checkbox-container input:checked + .checkmark {
+    background: #ff6b35;
+    border-color: #ff6b35;
+}
+
+.checkbox-container input:checked + .checkmark::after {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 12px;
+    top: -2px;
+    left: 2px;
+}
+
+.forgot-link {
+    color: #ff6b35;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.forgot-link:hover {
+    color: #e55a2b;
+}
+
+/* Login Button */
+.login-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255,107,53,0.3);
+    background: linear-gradient(135deg, #f7931e, #ff6b35);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+/* Error Message */
+.error-message {
+    background: rgba(220,53,69,0.1);
+    color: #dc3545;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(220,53,69,0.2);
+    font-size: 0.9rem;
+}
+
+/* Demo Section */
+.demo-section {
+    border-top: 1px solid #e9ecef;
+    padding-top: 1.5rem;
+}
+
+.demo-section h4 {
+    text-align: center;
+    color: #6c757d;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.demo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.demo-item {
+    background: rgba(248,249,250,0.8);
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.demo-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.demo-item.admin {
+    border-left: 4px solid #dc3545;
+}
+
+.demo-item.customer {
+    border-left: 4px solid #007bff;
+}
+
+.demo-role {
+    display: block;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.25rem;
+    font-size: 0.85rem;
+}
+
+.demo-creds {
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    color: #6c757d;
+    background: rgba(255,255,255,0.7);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-wrapper {
+        flex-direction: column;
+    }
+    
+    .login-left {
+        flex: 0 0 40vh;
+    }
+    
+    .welcome-content h1 {
+        font-size: 2rem;
+    }
+    
+    .welcome-content p {
+        font-size: 1rem;
+    }
+    
+    .login-right {
+        flex: 1;
+        padding: 1rem;
+    }
+    
+    .login-card {
+        padding: 2rem;
+    }
+    
+    .demo-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-left {
+        flex: 0 0 30vh;
+    }
+    
+    .login-card {
+        padding: 1.5rem;
+    }
+    
+    .welcome-content h1 {
+        font-size: 1.5rem;
+    }
+    
+    .logo {
+        font-size: 3rem;
+    }
+}
+
+/* Legacy styles for other pages */
+.admin-panel, .customer-panel, .upload-container {
+    max-width: 800px;
+    margin: 20px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
 table {
@@ -59,14 +382,6 @@ table th, table td {
 
 table th {
     background-color: #f8f9fa;
-}
-
-.error {
-    color: #d32f2f;
-    background: #ffebee;
-    padding: 10px;
-    border-radius: 3px;
-    margin: 10px 0;
 }
 
 .success {

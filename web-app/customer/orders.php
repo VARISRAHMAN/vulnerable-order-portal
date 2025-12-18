@@ -5,14 +5,22 @@ include '../config/database.php';
 // VULNERABILITY: No proper access control - user_id can be manipulated
 $user_id = isset($_GET['user_id']) ? $_GET['user_id'] : (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 1);
 
-// Vulnerable query - no authorization check
-$query = "SELECT * FROM orders WHERE user_id = $user_id";
-$result = mysqli_query($conn, $query);
+// Initialize variables
+$result = null;
+$user = array('username' => 'Unknown');
 
-// Get user info
-$user_query = "SELECT username FROM users WHERE id = $user_id";
-$user_result = mysqli_query($conn, $user_query);
-$user = mysqli_fetch_assoc($user_result);
+if ($conn) {
+    // Vulnerable query - no authorization check
+    $query = "SELECT * FROM orders WHERE user_id = $user_id";
+    $result = @mysqli_query($conn, $query);
+    
+    // Get user info
+    $user_query = "SELECT username FROM users WHERE id = $user_id";
+    $user_result = @mysqli_query($conn, $user_query);
+    if ($user_result) {
+        $user = mysqli_fetch_assoc($user_result) ?: array('username' => 'Unknown');
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,7 +51,7 @@ $user = mysqli_fetch_assoc($user_result);
                 <th>Status</th>
                 <th>Date</th>
             </tr>
-            <?php while ($order = mysqli_fetch_assoc($result)): ?>
+            <?php if ($result) while ($order = mysqli_fetch_assoc($result)): ?>
             <tr>
                 <td><?php echo $order['id']; ?></td>
                 <td><?php echo $order['product_name']; ?></td>

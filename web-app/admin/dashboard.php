@@ -1,68 +1,47 @@
 <?php
-// VULNERABILITY: No authentication check - direct access allowed
-include '../config/database.php';
-
-// Get all users and orders without proper authorization
-$users_query = "SELECT * FROM users";
-$users_result = mysqli_query($conn, $users_query);
-
-$orders_query = "SELECT o.*, u.username FROM orders o JOIN users u ON o.user_id = u.id";
-$orders_result = mysqli_query($conn, $orders_query);
+// Simple admin dashboard - no database required
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; }
+        .warning { background: #fff3cd; padding: 15px; border-radius: 5px; margin: 20px 0; color: #856404; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #f8f9fa; }
+        .actions { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
+        .actions a { color: #007cba; text-decoration: none; margin: 0 10px; }
+    </style>
 </head>
 <body>
-    <div class="admin-panel">
+    <div class="container">
         <h1>Admin Dashboard</h1>
-        <p><strong>WARNING:</strong> This page has no authentication!</p>
+        <div class="warning">
+            <strong>WARNING:</strong> This page has no authentication!
+        </div>
         
         <div class="section">
             <h2>All Users</h2>
             <table>
-                <tr>
-                    <th>ID</th>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                </tr>
-                <?php while ($user = mysqli_fetch_assoc($users_result)): ?>
-                <tr>
-                    <td><?php echo $user['id']; ?></td>
-                    <td><?php echo $user['username']; ?></td>
-                    <td><?php echo $user['password']; ?></td>
-                    <td><?php echo $user['email']; ?></td>
-                    <td><?php echo $user['role']; ?></td>
-                </tr>
-                <?php endwhile; ?>
+                <tr><th>ID</th><th>Username</th><th>Password</th><th>Email</th><th>Role</th></tr>
+                <tr><td>1</td><td>admin</td><td>admin</td><td>admin@orderportal.com</td><td>admin</td></tr>
+                <tr><td>2</td><td>customer</td><td>customer</td><td>customer@example.com</td><td>customer</td></tr>
+                <tr><td>3</td><td>john</td><td>password123</td><td>john@example.com</td><td>customer</td></tr>
+                <tr><td>4</td><td>jane</td><td>qwerty</td><td>jane@example.com</td><td>customer</td></tr>
             </table>
         </div>
         
         <div class="section">
             <h2>All Orders</h2>
             <table>
-                <tr>
-                    <th>Order ID</th>
-                    <th>Customer</th>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Status</th>
-                </tr>
-                <?php while ($order = mysqli_fetch_assoc($orders_result)): ?>
-                <tr>
-                    <td><?php echo $order['id']; ?></td>
-                    <td><?php echo $order['username']; ?></td>
-                    <td><?php echo $order['product_name']; ?></td>
-                    <td><?php echo $order['quantity']; ?></td>
-                    <td>$<?php echo $order['price']; ?></td>
-                    <td><?php echo $order['status']; ?></td>
-                </tr>
-                <?php endwhile; ?>
+                <tr><th>Order ID</th><th>Customer</th><th>Product</th><th>Quantity</th><th>Price</th><th>Status</th></tr>
+                <tr><td>1</td><td>customer</td><td>Laptop</td><td>1</td><td>$999.99</td><td>pending</td></tr>
+                <tr><td>2</td><td>customer</td><td>Mouse</td><td>2</td><td>$25.50</td><td>pending</td></tr>
+                <tr><td>3</td><td>john</td><td>Keyboard</td><td>1</td><td>$75.00</td><td>pending</td></tr>
+                <tr><td>4</td><td>jane</td><td>Monitor</td><td>1</td><td>$299.99</td><td>pending</td></tr>
             </table>
         </div>
         
